@@ -193,23 +193,8 @@ results = resamples(list(full_model = full_model,
                          ridge_model = ridge_model,
                          lasso_model = lasso_model))
 attributes(results)
-dotplot(results, metric = results$metrics[2:3], main = 'Comparing Output RSME & R^2') 
-summary(results, metric = results$metrics[2:3])
+dotplot(results) 
+summary(results)
 
-TrainRMSE_full_model = mean(results$values[, 3])
-TrainRMSE_forward_model = mean(results$values[, 6])
-TrainRMSE_random_model = mean(results$values[, 9])
-TrainRMSE_ridge_model = mean(results$values[, 12])
-TrainRMSE_lasso_model = mean(results$values[, 15])
-data.frame(modelType = results$models, 
-           TrainRMSE = c(TrainRMSE_full_model,
-                            TrainRMSE_forward_model,
-                            TrainRMSE_random_model,
-                            TrainRMSE_ridge_model,
-                            TrainRMSE_lasso_model))
 
-full_model_test = train(log_area ~ ., 
-                   data = ff_test_proc,
-                   method = 'lm',
-                   trControl = trainControl(method = 'cv', number = 10))
-attributes(full_model_test)
+
